@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="mfb_redirect.admin.redirect.class">MFB\RedirectBundle\Admin\RedirectAdmin</parameter>
+        <parameter key="mfb_redirect.admin.redirect.entity">MFB\RedirectBundle\Entity\Redirect</parameter>
+        <parameter key="mfb_redirect.admin.redirect.entity_manager">MFB\RedirectBundle\Entity\RedirectManager</parameter>
+
+        <parameter key="mfb_redirect.service.redirect.class">MFB\RedirectBundle\Service\RedirectService</parameter>
+    </parameters>
+
+    <services>
+        <service id="mfb_redirect.admin.redirect" class="%mfb_redirect.admin.redirect.class%">
+            <tag name="sonata.admin" manager_type="orm" group="Management" label="Redirect"/>
+            <argument/>
+            <argument>%mfb_redirect.admin.redirect.entity%</argument>
+            <argument/>
+        </service>
+
+        <service id="mfb_redirect.service.redirect" class="%mfb_redirect.service.redirect.class%">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="liip_doctrine_cache.ns.mc"/>
+        </service>
+    </services>
+</container>
