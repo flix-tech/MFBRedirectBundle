@@ -78,6 +78,16 @@ class Redirect
     }
 
     /**
+     * Get title
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->slug;
+    }
+
+    /**
      * Set target
      *
      * @param string $target
