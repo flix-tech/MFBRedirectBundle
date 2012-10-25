@@ -4,6 +4,9 @@ This bundle adds an entity which you can manage with SonataAdmin to create redir
 Very basic implementation and no fail-safes, but routing logic works like a charm.
 Depends on Memcache at the moment.
 
+Thanks for the insight to routing to
+http://php-and-symfony.matthiasnoback.nl/2012/01/symfony2-dynamically-add-routes/
+
 Add this to your deps file on Symfony2.0
 
 ```
