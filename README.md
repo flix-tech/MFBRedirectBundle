@@ -1,11 +1,18 @@
-### MFBRedirectBundle
+# MFBRedirectBundle
+
+## Description
 
 This bundle adds an entity which you can manage with SonataAdmin to create redirects on the fly.
 Very basic implementation and no fail-safes, but routing logic works like a charm.
 Depends on Memcache at the moment.
 
+## Credits
+
 Thanks for the insight to routing to
 http://php-and-symfony.matthiasnoback.nl/2012/01/symfony2-dynamically-add-routes/
+
+
+## Install
 
 Add this to your deps file on Symfony2.0
 
@@ -59,3 +66,9 @@ MFBRedirectBundle:
    resource: .
    type: extra
 ```
+
+### Last but not least:
+Update your database, we use Doctrine migrations for that.
+
+## License
+This software is released under MIT License. Check LICENSE file for details.
