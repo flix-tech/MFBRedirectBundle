@@ -5,6 +5,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
+        <parameter key="mfb_redirect.admin.redirect.router">MFB\RedirectBundle\Routing\ExtraLoader</parameter>
         <parameter key="mfb_redirect.admin.redirect.class">MFB\RedirectBundle\Admin\RedirectAdmin</parameter>
         <parameter key="mfb_redirect.admin.redirect.entity">MFB\RedirectBundle\Entity\Redirect</parameter>
         <parameter key="mfb_redirect.admin.redirect.entity_manager">MFB\RedirectBundle\Entity\RedirectManager</parameter>
@@ -24,5 +25,11 @@
             <argument type="service" id="doctrine.orm.entity_manager"/>
             <argument type="service" id="liip_doctrine_cache.ns.mc"/>
         </service>
+
+        <service id="mfb_redirect.routing_loader" class="%mfb_redirect.admin.redirect.router%">
+            <tag name="routing.loader"/>
+            <argument type="service" id="mfb_redirect.service.redirect" />
+        </service>
+
     </services>
 </container>
