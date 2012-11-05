@@ -26,6 +26,11 @@ class RedirectService
     protected $cache;
 
     /**
+     * @var string
+     */
+    protected $cachePrefix;
+
+    /**
      * @const Cache ID prefix
      */
     const CACHE_PREFIX = 'redirect.';
@@ -43,18 +48,20 @@ class RedirectService
     /**
      * @param EntityManager $em         Entity manager
      * @param AbstractCache $cache      Cache driver
+     * @param \AppKernel    $kernel
      *
      * @return RedirectService
      */
-    public function __construct(EntityManager $em, AbstractCache $cache)
+    public function __construct(EntityManager $em, AbstractCache $cache, $kernel)
     {
-        $this->em         = $em;
-        $this->cache      = $cache;
+        $this->em          = $em;
+        $this->cache       = $cache;
+        $this->cachePrefix = $kernel->getEnvironment() . '.' . self::CACHE_PREFIX;
     }
 
     public function getCollection()
     {
-        $cacheId = self::CACHE_PREFIX . self::CACHE_COLLECTION;
+        $cacheId = $this->cachePrefix . self::CACHE_COLLECTION;
         if (!$this->cache->contains($cacheId)) {
             $redirects = $this->loadCollectionFromDb();
             $this->cache->save($cacheId, serialize($redirects), self::CACHE_EXPIRATION);
@@ -77,7 +84,7 @@ class RedirectService
     public function getTarget($name)
     {
         $target = '';
-        $cacheId = self::CACHE_PREFIX . $name;
+        $cacheId = $this->cachePrefix . $name;
         if (!$this->cache->contains($cacheId)) {
             $redirectRepository = $this->getRepository();
             /** @var $redirect Redirect */
@@ -102,8 +109,8 @@ class RedirectService
      */
     public function clearCache($name)
     {
-        $this->cache->delete(self::CACHE_PREFIX . $name);
-        $this->cache->delete(self::CACHE_PREFIX . self::CACHE_COLLECTION);
+        $this->cache->delete($this->cachePrefix . $name);
+        $this->cache->delete($this->cachePrefix . self::CACHE_COLLECTION);
     }
 
     /**

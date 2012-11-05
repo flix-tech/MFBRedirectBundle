@@ -24,6 +24,7 @@
         <service id="mfb_redirect.service.redirect" class="%mfb_redirect.service.redirect.class%">
             <argument type="service" id="doctrine.orm.entity_manager"/>
             <argument type="service" id="liip_doctrine_cache.ns.mc"/>
+            <argument type="service" id="kernel"/>
         </service>
 
         <service id="mfb_redirect.routing_loader" class="%mfb_redirect.admin.redirect.router%">
