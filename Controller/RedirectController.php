@@ -26,7 +26,8 @@ class RedirectController extends Controller
         $url = $request->getRequestUri();
         $targetUrl = $redirectService->getTarget($url);
 
-        return new RedirectResponse($targetUrl);
+        // 301 Moved Permanently
+        return new RedirectResponse($targetUrl, 301);
     }
 
 }
