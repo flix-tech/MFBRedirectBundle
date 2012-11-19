@@ -26,6 +26,11 @@ class RedirectController extends Controller
         $url = $request->getRequestUri();
         $targetUrl = $redirectService->getTarget($url);
 
+        // @todo log URL to find out where empty strings come from
+        if (empty($targetUrl)) {
+            throw new NotFoundHttpException();
+        }
+
         // 301 Moved Permanently
         return new RedirectResponse($targetUrl, 301);
     }
